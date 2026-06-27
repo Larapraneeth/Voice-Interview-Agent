@@ -6,11 +6,6 @@ Runs on a **fully free stack** — one free API key (Groq), everything else free
 
 ---
 
-## Demo
-
-📹 **Screen recording:** _add your Loom / video link here_
-
-The walkthrough shows a full voice interview: speaking answers, the agent asking follow-ups, and the structured scoring at the end.
 
 ---
 
