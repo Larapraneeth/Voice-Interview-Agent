@@ -1,0 +1,77 @@
+{
+  "domain": "software_engineer_screening",
+  "title": "Software Engineer Phone Screen",
+  "description": "A generic backend-leaning software engineer screening covering fundamentals, problem solving, systems, and collaboration.",
+  "questions": [
+    {
+      "id": "se_01",
+      "topic": "introduction",
+      "question": "To start, can you walk me through your background and a project you are proud of?",
+      "ideal_answer": "A strong answer is concise and structured: it states current role or studies, the candidate's main technical strengths, and then picks one project with clear context. The candidate explains the problem, their specific contribution, the technical choices they made, and the measurable outcome or what they learned. They avoid listing every technology and instead show ownership and impact.",
+      "must_hit": ["clear role or context", "one focused project", "personal contribution", "outcome or learning"]
+    },
+    {
+      "id": "se_02",
+      "topic": "data_structures",
+      "question": "When would you choose a hash map over a balanced binary search tree, and what are the trade-offs?",
+      "ideal_answer": "A hash map gives average O(1) insert, lookup, and delete and is the default when you only need key based access and order does not matter. A balanced BST gives O(log n) operations but keeps keys sorted, so it is preferred for range queries, ordered traversal, finding nearest or successor keys, and predictable worst case performance. Hash maps have worst case O(n) on collisions, need a good hash function, and waste memory when sparse. The candidate should mention ordering, worst case guarantees, and the specific access pattern as the deciding factors.",
+      "must_hit": ["hash map average O(1)", "BST O(log n) and ordering", "range or ordered queries favor BST", "worst case and hashing trade-offs"]
+    },
+    {
+      "id": "se_03",
+      "topic": "concurrency",
+      "question": "What is a race condition, and how would you prevent one in a multi-threaded service?",
+      "ideal_answer": "A race condition happens when two or more threads access shared mutable state concurrently and the result depends on timing, so at least one access is a write. Prevention strategies include mutual exclusion with locks or mutexes, atomic operations for simple counters, immutable or thread-local data to avoid sharing, and higher level constructs like concurrent queues or actor models. A strong answer also mentions keeping critical sections small to avoid contention and the risk of deadlock when using multiple locks, plus consistent lock ordering as a remedy.",
+      "must_hit": ["shared mutable state and timing dependence", "locks or atomics or immutability", "small critical sections", "deadlock awareness"]
+    },
+    {
+      "id": "se_04",
+      "topic": "databases",
+      "question": "Explain what a database index is, and when adding one can hurt rather than help.",
+      "ideal_answer": "An index is an auxiliary data structure, usually a B-tree, that lets the database find rows by a column value without scanning the whole table, turning lookups and range scans from O(n) to roughly O(log n). It hurts on write heavy tables because every insert, update, or delete must also maintain the index, adding latency and storage. Indexes on low cardinality columns are often useless, and too many indexes bloat storage and slow writes. A good answer ties the decision to read versus write ratio and actual query patterns rather than indexing everything.",
+      "must_hit": ["speeds reads via B-tree", "write and storage overhead", "low cardinality caveat", "decision based on query patterns"]
+    },
+    {
+      "id": "se_05",
+      "topic": "api_design",
+      "question": "How would you design a REST API for a simple to-do list, and what makes it well designed?",
+      "ideal_answer": "Use resource oriented nouns like /tasks and /tasks/{id}, map verbs to HTTP methods (GET to read, POST to create, PUT or PATCH to update, DELETE to remove), and return correct status codes such as 201 on create, 200 on read, 404 when missing, and 400 on bad input. A good design is consistent and predictable, uses pagination and filtering on collections, versions the API, is stateless, validates input, and returns clear error bodies. The candidate should mention idempotency of PUT and DELETE and not putting actions in the URL as verbs.",
+      "must_hit": ["resource nouns and HTTP methods", "correct status codes", "pagination and validation", "statelessness or idempotency"]
+    },
+    {
+      "id": "se_06",
+      "topic": "debugging",
+      "question": "A service that was working fine is now returning slow responses in production. Walk me through how you debug it.",
+      "ideal_answer": "Start by quantifying the problem: which endpoints, since when, and how slow, using metrics and dashboards. Check recent changes such as deploys, config, or traffic spikes. Look at the layers in order: client, load balancer, application, database, and external dependencies, using logs, traces, and resource metrics like CPU, memory, and connection pools. Form a hypothesis, confirm it with data, then fix and verify. A strong answer is systematic and data driven, mentions distributed tracing or profiling, and avoids randomly changing things.",
+      "must_hit": ["quantify and scope the issue", "check recent changes", "systematic layer by layer with metrics and traces", "hypothesis then verify"]
+    },
+    {
+      "id": "se_07",
+      "topic": "system_design",
+      "question": "How would you design a URL shortener like bit.ly at a high level?",
+      "ideal_answer": "Core flow: take a long URL, generate a short unique key, store the mapping, and redirect on lookup. Key generation can use a base62 encoding of an auto increment id or a hash with collision handling. Storage is a key value store or relational table indexed on the short key, with heavy read traffic served by a cache like Redis. Reads vastly outnumber writes, so optimize for fast redirects with caching and possibly a CDN. A strong answer mentions scale estimation, the read heavy pattern, collision handling, and optional features like analytics, custom aliases, and expiry.",
+      "must_hit": ["short key generation strategy", "key value storage and indexing", "caching for read heavy traffic", "scale and collision considerations"]
+    },
+    {
+      "id": "se_08",
+      "topic": "testing",
+      "question": "What does a good automated test suite look like to you, and how do you decide what to test?",
+      "ideal_answer": "A good suite follows the test pyramid: many fast unit tests, fewer integration tests, and a small number of end to end tests. Tests should be deterministic, isolated, fast, and readable, testing behavior and contracts rather than implementation details. Decide what to test by risk and value: core business logic, edge cases, and previously broken paths first. A strong answer mentions that coverage is a guide not a goal, the value of tests as living documentation, and running them in CI on every change.",
+      "must_hit": ["test pyramid balance", "deterministic isolated fast tests", "test behavior not implementation", "prioritize by risk and run in CI"]
+    },
+    {
+      "id": "se_09",
+      "topic": "version_control",
+      "question": "Describe how you use Git in a team, and how you would resolve a merge conflict.",
+      "ideal_answer": "Work on feature branches off a main branch, commit small and meaningful units, open pull requests for review, and keep main releasable. A merge conflict happens when two branches change the same lines; resolve it by understanding both intents, editing the conflicted region to the correct combined result, removing the conflict markers, testing, and committing. A strong answer mentions pulling or rebasing frequently to reduce conflicts, communicating with the other author when unsure, and never blindly accepting one side.",
+      "must_hit": ["feature branches and pull requests", "small meaningful commits", "resolve by understanding both intents", "test after resolving"]
+    },
+    {
+      "id": "se_10",
+      "topic": "collaboration",
+      "question": "Tell me about a time you disagreed with a teammate on a technical decision. How did you handle it?",
+      "ideal_answer": "A strong answer uses a clear structure like situation, action, result. It shows the candidate listened to the other view, grounded the discussion in data, trade-offs, or requirements rather than ego, proposed a way to decide such as a prototype or a small experiment, and accepted the outcome professionally even if it differed from their preference. The key signals are respectful communication, focus on the best outcome for the product, and a concrete result or lesson learned.",
+      "must_hit": ["concrete situation", "data or trade-off driven discussion", "respectful and collaborative approach", "clear resolution and learning"]
+    }
+  ]
+}

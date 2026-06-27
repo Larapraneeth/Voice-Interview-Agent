@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice Interview Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <span class="eyebrow">Mock interview</span>
+      <h1 id="role-title">Voice Interview Agent</h1>
+      <p class="lede">Speak with the interviewer. It asks, listens, follows up, and scores you at the end.</p>
+    </header>
+
+    <section id="setup" class="card">
+      <label class="field">
+        <span>Your name</span>
+        <input id="candidate-name" type="text" placeholder="Optional" autocomplete="off" />
+      </label>
+      <label class="field">
+        <span>Interview language</span>
+        <select id="language"></select>
+      </label>
+      <button id="start-btn" class="primary">Start interview</button>
+      <p class="hint">Your microphone is used only while you hold to answer.</p>
+    </section>
+
+    <section id="interview" class="hidden">
+      <div class="progress">
+        <span id="progress-label">Question 1</span>
+        <div class="track"><div id="progress-fill"></div></div>
+      </div>
+
+      <div id="log" class="log"></div>
+
+      <div class="controls">
+        <button id="record-btn" class="orb" disabled>
+          <span class="orb-core"></span>
+          <span class="orb-label">Hold to answer</span>
+        </button>
+        <button id="finish-btn" class="ghost">End &amp; get feedback</button>
+      </div>
+      <p id="status" class="status"></p>
+    </section>
+
+    <section id="feedback" class="card hidden">
+      <div class="score-head">
+        <div class="score-ring"><span id="overall-score">0.0</span></div>
+        <div>
+          <h2>Feedback</h2>
+          <p id="feedback-summary"></p>
+        </div>
+      </div>
+      <div class="feedback-cols">
+        <div>
+          <h3>Strengths</h3>
+          <ul id="strengths"></ul>
+        </div>
+        <div>
+          <h3>To improve</h3>
+          <ul id="improvements"></ul>
+        </div>
+      </div>
+      <h3>Per question</h3>
+      <div id="per-question" class="per-question"></div>
+      <button id="restart-btn" class="primary">Run another interview</button>
+    </section>
+  </main>
+
+  <audio id="player" hidden></audio>
+  <script src="/static/app.js"></script>
+</body>
+</html>
